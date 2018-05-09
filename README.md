@@ -39,9 +39,9 @@ $ curl "http://tiles.rdnt.io/bounds?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com
 }
 ```
 
-### `/tiles/{z}/{x}/{y}` - Tiles
+#### `/tiles/{z}/{x}/{y}` - Tiles
 
-#### Parameters
+##### Parameters
 
 * `url` - a URL to a valid COG. Required.
 * `rgb` - Source bands to map to RGB channels. Defaults to `1,2,3`.
@@ -56,7 +56,7 @@ request tiles accordingly.
 PNGs or JPEGs will be rendered depending on the presence of NODATA values in the
 source image (surfaced as transparency in the output).
 
-#### Examples
+##### Examples
 
 ```bash
 $ curl "http://tiles.rdnt.io/tiles/14/3851/6812@2x?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif" | imgcat
@@ -76,13 +76,13 @@ $ curl "http://tiles.rdnt.io/tiles/14/3851/6812@2x?url=https%3A%2F%2Fs3-us-west-
 
 ![greyscale stretched](docs/greyscale_stretched.png)
 
-### `/tiles` - TileJSON
+#### `/tiles` - TileJSON
 
-#### Parameters
+##### Parameters
 
 See tile parameters.
 
-#### Example
+##### Example
 
 ```bash
 $ curl "http://tiles.rdnt.io/tiles?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif"
@@ -108,17 +108,17 @@ $ curl "http://tiles.rdnt.io/tiles?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%
 }
 ```
 
-### `/preview` - Preview
+#### `/preview` - Preview
 
-#### Parameters
+##### Parameters
 
 See tile parameters.
 
-#### Example
+##### Example
 
 `http://tiles.rdnt.io/preview?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif`
 
-## Using Leaflet or OpenLayers
+### Using Leaflet or OpenLayers
 
 These tiles should work with Leaflet or OpenLayers quite easily. For code examples see:
 
