@@ -1,47 +1,33 @@
-# marblecutter-virtual
+# tiles.rdnt.io
 
-I am a tile server for HTTP(S)-accessible [Cloud Optimized GeoTIFFs
-(COGs)](http://www.cogeo.org/).
+[tiles.rdnt.io](http://tiles.rdnt.io) is web map tiling service that lets anyone tap in to the power of 
+[Cloud Optimized GeoTIFFs](http://cogeo.org). It is hosted by [Radiant.Earth](http://radiant.earth) on 
+[AWS Lambda](https://aws.amazon.com/lambda/), and currently is open for anyone to try out and use in applications.
 
-I can also be seen as an example of a virtual `Catalog` implementation, drawing
-necessary metadata from URL parameters. For more information, check out [`VirtualCatalog`](virtual/catalogs.py) and [`web.py`](virtual/web.py).
+This repository is the version of [marblecutter-virtual](https://github.com/mojodna/marblecutter-virtual) deployed on 
+[tiles.rdnt.io](http://tiles.rdnt.io).
 
-## Running Locally
+The service is hosted for free, for as long as it is affordable for Radiant. If you are a heavy user of the service
+we encourage you to stand up your own marblecutter-virtual, which is quite easy to do.
 
-The easiest way to get a working instance running locally is to use [Docker
-Compose](https://docs.docker.com/compose/):
+## Using the service
 
-```bash
-docker-compose up
-```
+If you just want to view map data served up with the service then you can make use of [cog-map](http://cholmes.github.io/cog-map]. 
 
-A tile server will then be accessible on `localhost:8000`. To browse a map
-preview, visit
-`http://localhost:8000/preview?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif`.
+If you are a developer who wants to use the tiles in their mapping application then read on!
 
-URLs (`url` in the query string) must be URL-encoded. From a browser's
-JavaScript console (or Node.js REPL), run:
+### Endpoints
 
-```javascript
-encodeURIComponent("https://s3-us-west-2.amazonaws.com/planet-disaster-data/hurricane-harvey/SkySat_Freeport_s03_20170831T162740Z3.tif")
-```
+#### `/bounds` - Source image bounds (in geographic coordinates)
 
-If you need to access non-public files on S3, set your environment accordingly
-(see `sample.env`), either by creating `.env` and uncommenting `env_file` in
-`docker-compose.yml` or by adding appropriate `environment` entries.
-
-## Endpoints
-
-### `/bounds` - Source image bounds (in geographic coordinates)
-
-#### Parameters
+##### Parameters
 
 * `url` - a URL to a valid COG. Required.
 
-#### Example
+##### Example
 
 ```bash
-$ curl "http://localhost:8000/bounds?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif"
+$ curl "http://tiles.rdnt.io/bounds?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif"
 {
   "bounds": [
     -95.46993599071261,
@@ -73,19 +59,19 @@ source image (surfaced as transparency in the output).
 #### Examples
 
 ```bash
-$ curl "http://localhost:8000/tiles/14/3851/6812@2x?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif" | imgcat
+$ curl "http://tiles.rdnt.io/tiles/14/3851/6812@2x?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif" | imgcat
 ```
 
 ![RGB](docs/rgb.png)
 
 ```bash
-$ curl "http://localhost:8000/tiles/14/3851/6812@2x?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif&rgb=1,1,1" | imgcat
+$ curl "http://tiles.rdnt.io/tiles/14/3851/6812@2x?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif&rgb=1,1,1" | imgcat
 ```
 
 ![greyscale](docs/greyscale.png)
 
 ```bash
-$ curl "http://localhost:8000/tiles/14/3851/6812@2x?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif&rgb=1,1,1&linearStretch=true" | imgcat
+$ curl "http://tiles.rdnt.io/tiles/14/3851/6812@2x?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif&rgb=1,1,1&linearStretch=true" | imgcat
 ```
 
 ![greyscale stretched](docs/greyscale_stretched.png)
@@ -99,7 +85,7 @@ See tile parameters.
 #### Example
 
 ```bash
-$ curl "http://localhost:8000/tiles?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif"
+$ curl "http://tiles.rdnt.io/tiles?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif"
 {
   "bounds": [
     -95.46993599071261,
@@ -117,7 +103,7 @@ $ curl "http://localhost:8000/tiles?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com
   "name": "Untitled",
   "tilejson": "2.1.0",
   "tiles": [
-    "//localhost:8000/tiles/{z}/{x}/{y}?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif"
+    "//tiles.rdnt.io/tiles/{z}/{x}/{y}?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif"
   ]
 }
 ```
@@ -130,18 +116,12 @@ See tile parameters.
 
 #### Example
 
-`http://localhost:8000/preview?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif`
+`http://tiles.rdnt.io/preview?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fplanet-disaster-data%2Fhurricane-harvey%2FSkySat_Freeport_s03_20170831T162740Z3.tif`
 
-## Deploying to AWS Lambda
+## Using Leaflet or OpenLayers
 
-tk
+These tiles should work with Leaflet or OpenLayers quite easily. For code examples see:
 
-```bash
-make deploy-up
-```
+[marblecutter preview](https://github.com/mojodna/marblecutter/blob/master/marblecutter/templates/preview.html) (leaflet)
 
-or
-
-```bash
-make deploy-apex
-```
+[cog-map](https://github.com/radiantearth/cog-map/blob/master/main.js) (openlayers)
