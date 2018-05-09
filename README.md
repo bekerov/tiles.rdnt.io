@@ -16,6 +16,8 @@ If you just want to view map data served up with the service then you can make u
 
 If you are a developer who wants to use the tiles in their mapping application then read on!
 
+(Image credits CC-BY-SA from [Planet disaster data](https://www.planet.com/disaster/hurricane-harvey-2017-08-28/)
+
 ### Endpoints
 
 #### `/bounds` - Source image bounds (in geographic coordinates)
