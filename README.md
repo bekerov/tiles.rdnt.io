@@ -12,7 +12,7 @@ we encourage you to stand up your own marblecutter-virtual, which is quite easy 
 
 ## Using the service
 
-If you just want to view map data served up with the service then you can make use of [cog-map](http://cholmes.github.io/cog-map]. 
+If you just want to view map data served up with the service then you can make use of [cog-map](http://www.cogeo.org/map). 
 
 If you are a developer who wants to use the tiles in their mapping application then read on!
 
