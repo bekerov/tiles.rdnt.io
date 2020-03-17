@@ -14,7 +14,7 @@ we encourage you to stand up your own marblecutter-virtual, which is quite easy 
 
 If you just want to view map data served up with the service then you can make use of [cog-map](http://www.cogeo.org/map). 
 You can enter the URL to an online COG or to a VRT that describes a collection of COGs. For example the following will load a collection of COGs from NOAA that were collected following the Nashville, TN tornado:
-<pre><code>https://www.cogeo.org/map/#/url/https%3A%2F%2Fnoaa-eri-pds.s3.amazonaws.com%2F2020_Nashville_Tornado%2F20200307a_RGB%2F20200307a_COG.vrt/center/-85.58207,36.177/zoom/20</pre></code>
+`https://tiles.rdnt.io/preview?url=https%3A%2F%2Fnoaa-eri-pds.s3.amazonaws.com%2F2020_Nashville_Tornado%2F20200307a_RGB%2F20200307a_COG.vrt#20/36.177/-85.58207`
 
 
 If you are a developer who wants to use the tiles in their mapping application then read on!
